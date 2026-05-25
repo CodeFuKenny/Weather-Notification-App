@@ -26,3 +26,8 @@ export interface NotificationMessage {
     commuteDuration: string;
     trafficDuration?: string;
 }
+
+export type Config = 
+    | { cityName: string; origin: string; dest: string; notificationMethod: string; searchType: 'city'; }
+    | { zipCode: number;  origin: string; dest: string; notificationMethod: string; searchType: 'zip'; }
+

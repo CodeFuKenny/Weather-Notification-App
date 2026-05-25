@@ -1,4 +1,4 @@
-import { LocationData, WeatherData }  from '../interfaces';
+import { LocationData, WeatherData, Config }  from '../interfaces';
 
 
 export function unixToReadableTime(unixTimestamp: number): string {
@@ -26,19 +26,59 @@ export function formatMessage(
     const duration = commute_data.duration;
 
     const message =`
-==============================
-Weather data for ${locationName}:
-==============================
+
 The current time is ${time}.
+
+=========================================
+==============Weather data===============
+=========================================
+Location: ${locationName}.
 The temperature is : ${temperature}°F.
 The wind speed is ${wind_speed} mph.
 The weather is ${weather}.
-==============================
-Commute data from ${origin} to ${dest}:
-==============================
-Work is ${distance} away.
-It will take ${duration} to get there.
-==============================`.trim();
+
+=========================================
+==============Commute data:==============
+=========================================
+From: ${origin} 
+To: ${dest}
+Total Distance: ${distance}.
+Trip Time: ${duration}.`
 
     return message
+}
+
+
+// export function getSearchType(): SearchType {
+//     const val = process.env.SEARCHTYPE;
+//     if (val !== 'city' && val !== 'zip') {
+//         throw new Error(`Invalid SEARCHTYPE: "${val}". Must be 'city' or 'zip'.`);
+//     }
+//     return val;
+// }
+
+export function getEnvVar(key: string): string {
+    const value = process.env[key];
+    if (!value) throw new Error(`Missing environment variable: ${key}`);
+    return value;
+}
+
+export function buildConfig(): Config {
+    const searchType = getEnvVar('SEARCHTYPE');
+    
+    if (searchType !== 'city' && searchType !== 'zip') {
+        throw new Error(`Invalid SEARCHTYPE: "${searchType}". Must be 'city' or 'zip'.`);
+    }
+
+    const shared = {
+        origin: getEnvVar('ORIGIN'),
+        dest: getEnvVar('DESTINATION'),
+        notificationMethod: getEnvVar('NOTIFICATIONMETHOD'),
+    };
+
+    if (searchType === 'city') {
+        return { searchType, cityName: getEnvVar('CITY'), ...shared };
+    } else {
+        return { searchType, zipCode: parseInt(getEnvVar('ZIPCODE')), ...shared };
+    }
 }

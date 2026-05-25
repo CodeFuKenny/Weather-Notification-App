@@ -1,10 +1,11 @@
 import * as dotenv from 'dotenv';
 import { LocationData, WeatherData }  from '../interfaces';
+import { getEnvVar } from '../utils/helpers';
 
 dotenv.config();
 
-const apiKeyOpenWeather = process.env.API_KEY_OPENWEATHER;
-const units = "imperial";
+const apiKeyOpenWeather = getEnvVar('API_KEY_OPENWEATHER');
+const units = getEnvVar('UNITS');
 
 export async function getLatLonByZip(zip_code: number) {
     const url = `http://api.openweathermap.org/geo/1.0/zip?zip=${zip_code}&appid=${apiKeyOpenWeather}`;

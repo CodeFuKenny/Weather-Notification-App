@@ -1,14 +1,15 @@
 import * as dotenv from 'dotenv';
-import { from } from 'node:stream/iter';
 const twilio = require ("twilio")
+import { getEnvVar } from '../utils/helpers';
+
 
 dotenv.config()
 
 export async function sendTwilioMessage(messagez: string) {
-    const accountSid = process.env.TWILIO_ACCOUNT_SID;
-    const authToken = process.env.TWILIO_AUTH_TOKEN;
-    const fromNumber = process.env.TWILIO_PHONE_NUMBER;
-    const toNumber = process.env.TWILIO_TO_NUMBER;
+    const accountSid = getEnvVar('TWILIO_ACCOUNT_SID');
+    const authToken = getEnvVar('TWILIO_AUTH_TOKEN');
+    const fromNumber = getEnvVar('TWILIO_PHONE_NUMBER');
+    const toNumber = getEnvVar('TWILIO_TO_NUMBER');
 
     const client = twilio(accountSid, authToken);
 
@@ -49,9 +50,7 @@ export async function sendDiscordMessage(message: string) {
             console.error(`Discord API error: ${response.status}`);
             return;
         }
-
         console.log('Discord message sent successfully');
-
     } catch (error) {
         console.error('Network error:', error);
     }
