@@ -4,7 +4,7 @@ A TypeScript-based CLI tool that orchestrates multiple API workflows to deliver 
 ## Key Features
 - Weather Integration: Fetches real-time localized data via OpenWeatherMap API.
 - Commute Analysis: Calculates travel times and traffic delays using Google Maps Distance Matrix.
-- Automated Delivery: Formats and pushes data to Slack or via SMS using Twilio.
+- Automated Delivery: Formats and pushes data to Discord or via SMS using Twilio.
 - Type Safety: Strict interface definitions for all external API contracts.
 
 ## Tech Stack
