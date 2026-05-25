@@ -14,7 +14,8 @@ A TypeScript-based CLI tool that orchestrates multiple API workflows to deliver 
 - Environment Management: Dotenv
 - Execution: ts-node
 
-## PrerequisitesBefore you begin, ensure you have the following API keys:
+## Prerequisites
+Before you begin, ensure you have the following API keys:
 - OpenWeatherMap: Get API Key
 - Google Maps Platform: Enable Distance Matrix API
 - Discord: Create an Webhook 
